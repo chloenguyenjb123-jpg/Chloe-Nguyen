@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@layer base {
+  :root,
+  [data-theme="warm_ivory"] {
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --dh-bg: #F8F5F0;
+    --dh-surface: #FFFFFF;
+    --dh-surface-muted: #F3EDE6;
+    --dh-blush: #EBCFD0;
+    --dh-blush-soft: #F7ECEC;
+    --dh-beige: #D8C3B5;
+    --dh-border: #E8DFD6;
+    --dh-taupe: #A77C78;
+    --dh-taupe-hover: #916763;
+    --dh-brown: #55443F;
+    --dh-brown-muted: #7F6D67;
+    --dh-sage: #A8B5A0;
+    --dh-sage-soft: #EDF1EA;
+    --dh-sage-deep: #5B6B52;
+  }
+
+  [data-theme="soft_blush"] {
+    --dh-bg: #FAF2F2;
+    --dh-surface: #FFFFFF;
+    --dh-surface-muted: #F7E8E8;
+    --dh-blush: #EBCFD0;
+    --dh-blush-soft: #F8E5E6;
+    --dh-beige: #DFC8BF;
+    --dh-border: #EDD9D9;
+    --dh-taupe: #A77C78;
+    --dh-taupe-hover: #8E6460;
+    --dh-brown: #55443F;
+    --dh-brown-muted: #7C6662;
+    --dh-sage: #A8B5A0;
+    --dh-sage-soft: #EEF2EB;
+    --dh-sage-deep: #5B6B52;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--dh-bg);
+    color: var(--dh-brown);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono,
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.dh-card {
+  background-color: var(--dh-surface);
+  border: 1px solid var(--dh-border);
+  border-radius: 1.125rem;
+  box-shadow: 0 2px 12px -4px rgba(85, 68, 63, 0.06);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dh-card-hover:hover {
+  border-color: var(--dh-beige);
+  box-shadow: 0 8px 24px -8px rgba(85, 68, 63, 0.11);
+}
+
+.dh-input {
+  background-color: var(--dh-surface);
+  border: 1px solid var(--dh-border);
+  color: var(--dh-brown);
+  border-radius: 0.75rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dh-input:focus {
+  outline: none;
+  border-color: var(--dh-taupe);
+  box-shadow: 0 0 0 3px rgba(235, 207, 208, 0.45);
+}
+
+.dh-btn-primary {
+  background-color: var(--dh-brown);
+  color: #F8F5F0;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.dh-btn-primary:hover {
+  background-color: #433531;
+}
+
+.dh-btn-accent {
+  background-color: var(--dh-taupe);
+  color: #FFFFFF;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease;
+}
+
+.dh-btn-accent:hover {
+  background-color: var(--dh-taupe-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

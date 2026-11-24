@@ -1,0 +1,6 @@
+{
+  "name": "Daily Hub",
+  "description": "Không gian làm việc cá nhân toàn diện giúp quản lý công việc, thu chi, ghi chú, tỷ giá ngoại tệ và báo cáo ngày thông minh với trợ lý AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

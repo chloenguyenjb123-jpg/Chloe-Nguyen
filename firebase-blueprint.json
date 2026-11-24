@@ -1,0 +1,219 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Personal user workspace profile, preferences, work schedule, and budget configuration isolated per authenticated owner.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "maxLength": 254 },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "monthlyBudget": { "type": "number" },
+        "budgetAlertThreshold": { "type": "number" },
+        "savingsGoalMonthly": { "type": "number" },
+        "timezone": { "type": "string", "enum": ["Asia/Ho_Chi_Minh"] },
+        "currency": { "type": "string", "enum": ["VND"] },
+        "language": { "type": "string", "enum": ["vi", "en"] },
+        "theme": { "type": "string", "enum": ["warm_ivory", "soft_blush"] },
+        "preferredCurrency": { "type": "string", "enum": ["USD", "EUR", "GBP", "JPY", "KRW", "CNY", "AUD", "SGD", "THB", "VND"] },
+        "notificationsEnabled": { "type": "boolean" },
+        "dailyWorkStart": { "type": "string", "maxLength": 5 },
+        "dailyWorkEnd": { "type": "string", "maxLength": 5 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "monthlyBudget", "budgetAlertThreshold", "timezone", "currency", "createdAt", "updatedAt"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Personal daily task item with category, priority, dates, status, subtasks, recurrence, time-blocking, and reminders.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "startDate": { "type": "string", "maxLength": 10, "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "deadline": { "type": "string", "maxLength": 10, "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "status": { "type": "string", "enum": ["todo", "in_progress", "completed", "on_hold"] },
+        "notes": { "type": "string", "maxLength": 2000 },
+        "carriedOverFrom": { "type": "string", "maxLength": 10 },
+        "recurrence": { "type": "string", "enum": ["none", "daily", "weekly", "monthly"] },
+        "timeBlockStart": { "type": "string", "maxLength": 5 },
+        "estimatedMinutes": { "type": "number" },
+        "reminderTime": { "type": "string", "maxLength": 5 },
+        "subtasks": { "type": "array" },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "description", "category", "priority", "startDate", "deadline", "status", "notes", "createdAt", "updatedAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Personal income or expense financial record in VND with optional recurrence flag and interval.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "type": { "type": "string", "enum": ["income", "expense"] },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "maxLength": 10, "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "category": { "type": "string", "enum": ["food", "transportation", "shopping", "education", "bills", "entertainment", "health", "salary", "other"] },
+        "paymentMethod": { "type": "string", "enum": ["cash", "bank_transfer", "e_wallet"] },
+        "description": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "note": { "type": "string", "maxLength": 1000 },
+        "isRecurring": { "type": "boolean" },
+        "recurrenceInterval": { "type": "string", "enum": ["none", "weekly", "monthly"] },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "amount", "date", "category", "paymentMethod", "description", "note", "createdAt", "updatedAt"]
+    },
+    "Note": {
+      "title": "Note",
+      "description": "Personal knowledge note supporting folders, categories, bounded tags, pinning, archiving, attachments, and optional task link.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "content": { "type": "string", "maxLength": 20000 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "folder": { "type": "string", "maxLength": 60 },
+        "tags": { "type": "array" },
+        "pinned": { "type": "boolean" },
+        "archived": { "type": "boolean" },
+        "linkedTaskId": { "type": "string", "maxLength": 128 },
+        "attachments": { "type": "array" },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "content", "category", "tags", "pinned", "createdAt", "updatedAt"]
+    },
+    "Goal": {
+      "title": "Goal",
+      "description": "Personal productivity or financial goal tracked over weekly, monthly, quarterly, or yearly periods.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "period": { "type": "string", "enum": ["weekly", "monthly", "quarterly", "yearly"] },
+        "targetValue": { "type": "number" },
+        "currentValue": { "type": "number" },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "startDate": { "type": "string", "maxLength": 10, "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "targetDate": { "type": "string", "maxLength": 10, "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "completed": { "type": "boolean" },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "description", "category", "period", "targetValue", "currentValue", "unit", "startDate", "targetDate", "completed", "createdAt", "updatedAt"]
+    },
+    "Habit": {
+      "title": "Habit",
+      "description": "Daily or weekly habit with completion date history, streak tracking, and optional reminder.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "frequency": { "type": "string", "enum": ["daily", "weekly"] },
+        "reminderTime": { "type": "string", "maxLength": 5 },
+        "completedDates": { "type": "array" },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "category", "frequency", "completedDates", "createdAt", "updatedAt"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Audit timeline of user actions across Daily Hub modules.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "type": { "type": "string", "enum": ["task_created", "task_completed", "transaction_created", "note_saved", "goal_updated", "habit_checked", "report_generated"] },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "detail": { "type": "string", "maxLength": 400 },
+        "timestampIso": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "title", "detail", "timestampIso", "createdAt"]
+    },
+    "ExchangeRateSnapshot": {
+      "title": "ExchangeRateSnapshot",
+      "description": "Historical daily foreign exchange rate snapshot against VND fetched from external exchange rate API.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "date": { "type": "string", "maxLength": 10, "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "baseCurrency": { "type": "string", "enum": ["VND"] },
+        "rates": { "type": "object" },
+        "previousRates": { "type": "object" },
+        "source": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "fetchedAt": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "scheduleTag": { "type": "string", "maxLength": 40 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "date", "baseCurrency", "rates", "source", "fetchedAt", "createdAt", "updatedAt"]
+    },
+    "DailyReport": {
+      "title": "DailyReport",
+      "description": "Saved periodic report metadata and AI-generated insights for a specific date or custom range.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "periodType": { "type": "string", "enum": ["daily", "weekly", "monthly", "custom"] },
+        "dateKey": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "aiInsights": { "type": "string", "maxLength": 15000 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "periodType", "dateKey", "aiInsights", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Owner-only user profile and personal workspace settings."
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "User's personal tasks collection."
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "User's income and expense transactions in VND."
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/Note" },
+      "description": "User's personal notes with folders, tags, pinning, archiving, attachments, and optional task references."
+    },
+    "/users/{userId}/goals/{goalId}": {
+      "schema": { "$ref": "#/entities/Goal" },
+      "description": "User's personal and financial goals."
+    },
+    "/users/{userId}/habits/{habitId}": {
+      "schema": { "$ref": "#/entities/Habit" },
+      "description": "User's daily and weekly habit tracker records."
+    },
+    "/users/{userId}/activities/{activityId}": {
+      "schema": { "$ref": "#/entities/ActivityLog" },
+      "description": "User's recent activity timeline events."
+    },
+    "/users/{userId}/exchangeRates/{dateKey}": {
+      "schema": { "$ref": "#/entities/ExchangeRateSnapshot" },
+      "description": "User's saved daily historical exchange rate snapshots against VND."
+    },
+    "/users/{userId}/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/DailyReport" },
+      "description": "User's saved daily/weekly/monthly/custom report insights."
+    }
+  }
+}
